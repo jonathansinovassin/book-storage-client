@@ -1,4 +1,8 @@
 import React from 'react';
+import DatePicker from 'react-datepicker';
+
+import "react-datepicker/dist/react-datepicker.css";
+
 
 class BookForm extends React.Component {
     constructor(props) {
@@ -6,6 +10,7 @@ class BookForm extends React.Component {
       this.state = this.initState();
   
       this.handleChange = this.handleChange.bind(this);
+      this.handleChangeDate = this.handleChangeDate.bind(this);
       this.add = this.add.bind(this);
     }
   
@@ -17,7 +22,13 @@ class BookForm extends React.Component {
             [name]: target.value
         });
     }
-  
+
+    handleChangeDate(value) {
+        this.setState({
+            dateOfPublication: value
+        });
+    }
+
     add() {
       this.props.store.add({
             title : this.state.title,
@@ -85,12 +96,11 @@ class BookForm extends React.Component {
                 <div className="form-group row">
                     <label htmlFor="dateOfPublication" className="col-sm-2 col-form-label">Date of publication</label>
                     <div className="col-sm-10">
-                        <input type="textarea"
+                        <DatePicker
+                            selected={this.state.dateOfPublication}
+                            onChange={this.handleChangeDate}
+                            dateFormat='yyyy-MM-dd'
                             className="form-control"
-                            id="dateOfPublication"
-                            name="dateOfPublication"
-                            onChange={this.handleChange}
-                            value={this.state.dateOfPublication}
                         />
                     </div>
                 </div>

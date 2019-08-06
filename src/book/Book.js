@@ -96,6 +96,7 @@ class Book extends Component{
                     <DatePicker
                         selected={this.state.book.dateOfPublication}
                         onChange={this.handleChangeDate}
+                        dateFormat='yyyy-MM-dd'
                     />:
                     new Intl.DateTimeFormat('en-GB', { 
                         year: 'numeric', 

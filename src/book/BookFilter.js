@@ -1,4 +1,7 @@
 import React from 'react';
+import DatePicker from 'react-datepicker';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class BookFilter extends React.Component {
     constructor(props) {
@@ -6,6 +9,8 @@ class BookFilter extends React.Component {
       this.state = this.initState();
   
       this.handleChange = this.handleChange.bind(this);
+      this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
+      this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
       this.list = this.list.bind(this);
     }
   
@@ -18,6 +23,18 @@ class BookFilter extends React.Component {
         });
     }
   
+    handleChangeStartDate(value) {
+        this.setState({
+            startDatePublication: value
+        });
+    }
+
+    handleChangeEndDate(value) {
+        this.setState({
+            endDatePublication: value
+        });
+    }
+
     list() {
       this.props.store.list({
             title : this.state.title,
@@ -87,24 +104,22 @@ class BookFilter extends React.Component {
                 <div className="form-group row">
                     <label htmlFor="startDatePublication" className="col-sm-2 col-form-label">Start date</label>
                     <div className="col-sm-10">
-                        <input type="textarea"
+                        <DatePicker
+                            selected={this.state.startDatePublication}
+                            onChange={this.handleChangeStartDate}
+                            dateFormat='yyyy-MM-dd'
                             className="form-control"
-                            id="startDatePublication"
-                            name="startDatePublication"
-                            onChange={this.handleChange}
-                            value={this.state.startDatePublication}
                         />
                     </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="endDatePublication" className="col-sm-2 col-form-label">End date</label>
                     <div className="col-sm-10">
-                        <input type="textarea"
+                        <DatePicker
+                            selected={this.state.endDatePublication}
+                            onChange={this.handleChangeEndDate}
+                            dateFormat='yyyy-MM-dd'
                             className="form-control"
-                            id="endDatePublication"
-                            name="endDatePublication"
-                            onChange={this.handleChange}
-                            value={this.state.endDatePublication}
                         />
                     </div>
                 </div>
