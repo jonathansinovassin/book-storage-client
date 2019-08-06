@@ -20,13 +20,13 @@ The book will be added to the table under the form
 
 ### Update a book
 
-In the table of book, click on the `Edit` button.
+In the table of books, click on the `Edit` button.
 
 A form will appear in the table. You can modify the information of a book and click on `Update` to save the modification.
 
 ### Delete a book
  
-In the table of book, click on the `Delete` button.
+In the table of books, click on the `Delete` button.
 
 Once you clicked on the button, the book will be deleted in the database and will disappear.
 
