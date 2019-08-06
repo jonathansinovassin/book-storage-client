@@ -5,13 +5,14 @@ To create a book, use the form on the left side of the page.
 Fill the form with the information of the book
 
 Field of the form :
-|Name | Type |
-------|-------
-Title | String|
-Author | String |
-Summary | Text|
-Price | Double |
-Date of publication | Date (format: yyyy-MM-dd) |
+
+| Name     |      Type     |
+|----------|:-------------:|
+| Title    |  String       |
+| Author   |  String       |
+| Summary  | Text          |
+| Price    | Double        |
+| Date of publication  | Date (format: yyyy-MM-dd) |
 
 When you filled the form, click on the `Add` button.
 
