@@ -14,8 +14,9 @@ git clone https://github.com/jonathansinovassin/book-storage-client
 ```
 
 ### Lauch the application
-Go to the book-storage-client folder then launch the following command
+Go to the book-storage-client folder then launch the following commands
 ```
+npm install
 npm start
 ```
 The application will be running at the address : [http://localhost:3000](http://localhost:3000)<br>
