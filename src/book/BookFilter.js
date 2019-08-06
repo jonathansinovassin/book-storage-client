@@ -1,12 +1,12 @@
 import React from 'react';
 
-class BookForm extends React.Component {
+class BookFilter extends React.Component {
     constructor(props) {
       super(props);
       this.state = this.initState();
   
       this.handleChange = this.handleChange.bind(this);
-      this.add = this.add.bind(this);
+      this.list = this.list.bind(this);
     }
   
     handleChange(event) {
@@ -18,21 +18,23 @@ class BookForm extends React.Component {
         });
     }
   
-    add() {
-      this.props.store.add({
+    list() {
+      this.props.store.list({
             title : this.state.title,
             author : this.state.author,
             summary : this.state.summary,
             price : this.state.price,
-            dateOfPublication : this.state.dateOfPublication
+            startDatePublication : this.state.startDatePublication,
+            endDatePublication : this.state.endDatePublication,
+            sortBy : this.state.sortBy,
+            sortByAsc : this.state.sortByAsc
         });
-        this.setState(this.initState());
     }
 
     render() {
       return (
         <div>
-            <h1>New book</h1>
+            <h1>Filters</h1>
             <form onSubmit={this.handleSubmit}>
                 <div className="form-group row">
                     <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
@@ -83,18 +85,30 @@ class BookForm extends React.Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="dateOfPublication" className="col-sm-2 col-form-label">Date of publication</label>
+                    <label htmlFor="startDatePublication" className="col-sm-2 col-form-label">Start date</label>
                     <div className="col-sm-10">
                         <input type="textarea"
                             className="form-control"
-                            id="dateOfPublication"
-                            name="dateOfPublication"
+                            id="startDatePublication"
+                            name="startDatePublication"
                             onChange={this.handleChange}
-                            value={this.state.dateOfPublication}
+                            value={this.state.startDatePublication}
                         />
                     </div>
                 </div>
-                <button type="button" className="btn btn-primary" onClick={this.add}>Add</button> 
+                <div className="form-group row">
+                    <label htmlFor="endDatePublication" className="col-sm-2 col-form-label">End date</label>
+                    <div className="col-sm-10">
+                        <input type="textarea"
+                            className="form-control"
+                            id="endDatePublication"
+                            name="endDatePublication"
+                            onChange={this.handleChange}
+                            value={this.state.endDatePublication}
+                        />
+                    </div>
+                </div>
+                <button type="button" className="btn btn-primary" onClick={this.list}>filter</button> 
             </form>
         </div>
       );
@@ -106,9 +120,12 @@ class BookForm extends React.Component {
             author: '',
             summary: '',
             price: '',
-            dateOfPublication: ''};
+            startDatePublication: '',
+            endDatePublication: '',
+            sortBy : '',
+            sortByAsc : ''};
     }
   }
 
   
-export default BookForm;
+export default BookFilter;

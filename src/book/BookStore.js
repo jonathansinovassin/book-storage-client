@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
 class BookStore{
 
     constructor(){
         this.books = [];
         this.changeCallbacks =[];
+        this.savedCriteria = null;
     }
 
     
@@ -15,10 +15,13 @@ class BookStore{
         this.changeCallbacks.push(callback);
     }
 
-    list(){
+    list(criteria){
+      if(criteria){
+        this.savedCriteria = criteria;
+      }
       fetch('/book-storage/book/list',{
         method : 'POST',
-        body : JSON.stringify({}),
+        body :  JSON.stringify(this.formatCriteria(this.savedCriteria)),
         headers : { 
           'Content-Type': 'application/json'
          }
@@ -27,7 +30,28 @@ class BookStore{
       .then(response => {
         this.books = response;
         this.inform();
-      })
+      });
+    }
+
+    formatCriteria(criteria){
+      let criteriaToSend = {};
+      if(criteria){
+        criteriaToSend = {
+          title : this.getValueIfNotEmpty(criteria.title),
+          author : this.getValueIfNotEmpty(criteria.author),
+          summary : this.getValueIfNotEmpty(criteria.summary),
+          price : this.getValueIfNotEmpty(criteria.price),
+          startDatePublication : this.getValueIfNotEmpty(criteria.startDatePublication),
+          endDatePublication : this.getValueIfNotEmpty(criteria.endDatePublication),
+          sortBy : this.getValueIfNotEmpty(criteria.sortBy),
+          sortByAsc : this.getValueIfNotEmpty(criteria.sortByAsc),
+        };
+      }
+      return criteriaToSend;
+    }
+
+    getValueIfNotEmpty(value){
+      return value ? value :null;
     }
 
     add(book){
@@ -46,20 +70,36 @@ class BookStore{
           })
           .then(() => {
             this.list();
-          })
+          });
     }
 
     delete(book){
       fetch('/book-storage/book/'+book.id,{
         method : 'DELETE'
       })
-      .then(response => {
+      .then(() => {
           this.list();
-      })   
+      });
     }
 
-    update(){
-
+    update(book){
+      fetch('/book-storage/book',{
+        method : 'PUT',
+        body : JSON.stringify({
+            id : book.id,
+            title : book.title,
+            author : book.author,
+            summary : book.summary,
+            price : book.price,
+            dateOfPublication : book.dateOfPublication,
+        }),
+        headers : { 
+          'Content-Type': 'application/json'
+         }
+      })
+      .then(() => {
+          this.list();
+      });
     }
 }
 
